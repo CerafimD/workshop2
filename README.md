@@ -54,32 +54,48 @@ Pikmin 3 - Реал тайм стратегия где игрок оптимиз
 
 
 ## Задание 2
-### Должна ли величина loss стремиться к нулю при изменении исходных данных? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ.
+### С помощью скрипта на языке Python заполните google-таблицу данными, описывающими выбранную игровую переменную в выбранной игре (в качестве таких переменных может выступать игровая валюта, ресурсы, здоровье и т.д.). Средствами google-sheets визуализируйте данные в google-таблице (постройте график, диаграмму и пр.) для наглядного представления выбранной игровой величины.
+Немного модифицировав код данный в воркошопе у меня получилось вывести вот такой график
+![alt text]([https://github.com/CerafimD/workshop2/blob/main/графики.jpg])
+На нем синий - основное число, количество pikmin'ов которое как и должно, растет, затем желтый - это общее количество собранных фруктов и красный - количество врагов. Все величины показывают себя примерно также как и при обычной игре.
+код для модификации таблицы и генерирования графиков: 
+'''
+import gspread
+import numpy as np
+from random import randint
 
-- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
-- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
+gc = gspread.service_account(filename='unitydatascience-400606-78cc91d889e0.json')
+sh = gc.open("UnityWorkshop2")
 
-```py
 
-import ScriptEnv
-ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
-oDesktop.RestoreWindow()
-oProject = oDesktop.NewProject()
-oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
-oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
-oDesign = oProject.SetActiveDesign("HFSSDesign1")
-oEditor = oDesign.SetActiveEditor("3D Modeler")
-oEditor.CreateSphere(
-	[
-		"NAME:SphereParameters",
-		"XCenter:="		, "0mm",
-		"YCenter:="		, "0mm",
-		"ZCenter:="		, "0mm",
-		"Radius:="		, "1.0770329614269mm"
-	], 
-)
+fruits_total = 0
+pikmin = 25
+mon = list(range(1,10))
+i = 0
+while i <= len(mon):
+    i += 1
+    if i == 0:
+        continue
+    else:
+        enemies = randint(1,10)
+        fruits = randint(1,5)
+        if pikmin > (enemies*5) and pikmin > (fruits*7) :
+            pikmin += enemies*3
+            fruits_total+=fruits
+            
+        elif pikmin > enemies*5:
+            pikmin += enemies*3
+        if pikmin > (fruits*7):
+            fruits_total +=fruits
+            
+        sh.sheet1.update(('A' + str(i)), i)
+        sh.sheet1.update(('B' + str(i)), pikmin)
+        sh.sheet1.update(('C' + str(i)), enemies)
+        sh.sheet1.update(('D' + str(i)), fruits_total)
+        print(pikmin)
+        print(fruits_total)
+'''
 
-```
 
 ## Задание 3
 ### Какова роль параметра Lr? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ. В качестве эксперимента можете изменить значение параметра.
