@@ -59,7 +59,7 @@ Pikmin 3 - Реал тайм стратегия где игрок оптимиз
 ![alt text]([https://github.com/CerafimD/workshop2/blob/main/графики.jpg])
 На нем синий - основное число, количество pikmin'ов которое как и должно, растет, затем желтый - это общее количество собранных фруктов и красный - количество врагов. Все величины показывают себя примерно также как и при обычной игре.
 код для модификации таблицы и генерирования графиков: 
-'''
+```
 import gspread
 import numpy as np
 from random import randint
@@ -91,7 +91,7 @@ while i <= len(mon):
         sh.sheet1.update(('D' + str(i)), fruits_total)
         print(pikmin)
         print(fruits_total)
-'''
+```
 
 
 ## Задание 3
