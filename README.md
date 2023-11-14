@@ -79,12 +79,10 @@ while i <= len(mon):
         if pikmin > (enemies*5) and pikmin > (fruits*7) :
             pikmin += enemies*3
             fruits_total+=fruits
-            
         elif pikmin > enemies*5:
             pikmin += enemies*3
         if pikmin > (fruits*7):
             fruits_total +=fruits
-            
         sh.sheet1.update(('A' + str(i)), i)
         sh.sheet1.update(('B' + str(i)), pikmin)
         sh.sheet1.update(('C' + str(i)), enemies)
