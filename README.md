@@ -63,11 +63,8 @@ Pikmin 3 - Реал тайм стратегия где игрок оптимиз
 import gspread
 import numpy as np
 from random import randint
-
 gc = gspread.service_account(filename='unitydatascience-400606-78cc91d889e0.json')
 sh = gc.open("UnityWorkshop2")
-
-
 fruits_total = 0
 pikmin = 25
 mon = list(range(1,10))
